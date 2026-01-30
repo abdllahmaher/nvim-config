@@ -14,4 +14,16 @@ vim.cmd([[
 vim.cmd([[
   autocmd VimEnter * if exists('g:loaded_blink_cmp') | let g:blink_cmp_enabled = 0 | endif
 ]])
+vim.notify("Welcome back, Commander")
 
+-- Disable all automatic formatting
+vim.g.autoformat_enabled = false
+vim.g.format_on_save = false
+-- Place this in your options or after LSP setup
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    -- Disable format-on-type
+    vim.lsp.handlers["textDocument/onTypeFormatting"] = function() end
+  end,
+})

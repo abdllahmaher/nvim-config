@@ -71,3 +71,49 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   pattern = "*",
   callback = auto_save,
 })
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    vim.api.nvim_set_hl(0, "BlinkCmpGhostText", {
+      fg = "#000000",
+      bg = "none",
+      italic = true,
+    })
+  end,
+})
+-- Auto-save configuration with "manual formatting only"
+local auto_save_group = vim.api.nvim_create_augroup("AutoSaveGroup", { clear = true })
+
+local save_timer = nil
+
+local function auto_save()
+  if not vim.bo.modifiable then return end
+  if vim.fn.expand("%") == "" then return end
+
+  -- mark this write as auto-save
+  vim.b._is_auto_save = true
+  vim.cmd("silent! update")
+  vim.b._is_auto_save = nil
+end
+
+local function debounced_auto_save()
+  if save_timer then save_timer:stop() end
+  save_timer = vim.defer_fn(auto_save, 100) -- 100ms debounce
+end
+
+vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+  group = auto_save_group,
+  pattern = "*",
+  callback = debounced_auto_save,
+})
+
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
+  group = auto_save_group,
+  pattern = "*",
+  callback = auto_save,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+  group = auto_save_group,
+  pattern = "*",
+  callback = auto_save,
+})
