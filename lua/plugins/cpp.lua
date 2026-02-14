@@ -98,8 +98,8 @@ return {
     "p00f/clangd_extensions.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp", -- <- make sure this is added
     },
     ft = { "c", "cpp", "h", "hpp" },

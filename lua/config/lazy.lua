@@ -87,12 +87,12 @@ require("lazy").setup({
           trigger_events = {
             immediate_save = { "BufLeave", "FocusLost" },
             defer_save = { "TextChanged", "InsertLeave", "CursorHold" },
-            cancel_defered_save = { "InsertEnter" },
+            --cancel_defered_save = { "InsertEnter" },
           },
           debounce_delay = 250,
-          execution_message = {
-            enabled = false,
-          },
+          --execution_message = {
+          --  enabled = false,
+          --},
           condition = function(buf)
             local fn = vim.fn
             local utils = require("auto-save.utils.data")

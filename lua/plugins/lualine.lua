@@ -4,7 +4,7 @@ return {
     event = "VeryLazy",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
-      "echasnovski/mini.icons",
+      "nvim-mini/mini.icons",
     },
     opts = function()
       -- safe hl function for lualine (converts decimal colors to hex)

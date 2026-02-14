@@ -27,3 +27,5 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.lsp.handlers["textDocument/onTypeFormatting"] = function() end
   end,
 })
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/user/snippets" })
+

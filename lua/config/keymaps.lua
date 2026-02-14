@@ -32,4 +32,22 @@ vim.keymap.set("n", "<Space><Left>", ":bprevious<CR>", {
 vim.keymap.set("n", "<Space>q", function()
   Snacks.bufdelete({ force = false })
 end, { desc = "Close buffer (keep focus)" })
+local ls = require("luasnip")
+vim.keymap.set({"i","s"}, "<Tab>", function()
+    if ls.expand_or_jumpable() then
+        return ls.expand_or_jump()
+    else
+        return "<Tab>"
+    end
+end, {expr=true, silent=true})
+
+vim.keymap.set({"i","s"}, "<S-Tab>", function()
+    if ls.jumpable(-1) then
+        return ls.jump(-1)
+    else
+        return "<S-Tab>"
+    end
+end, {expr=true, silent=true})
+
+vim.keymap.set("n", "<leader>t", ":CompetiTest run<CR>", { noremap = true, silent = true })
 

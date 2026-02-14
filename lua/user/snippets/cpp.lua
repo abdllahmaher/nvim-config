@@ -1,0 +1,67 @@
+local ls = require("luasnip")
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+
+return {
+    s("cppfull", {
+        t({
+            "// ميميحلا نمرحلا هللا مسب",
+            "// Kys",
+            "#include <iostream>",
+            "#include <algorithm>",
+            "#include <climits>",
+            "#include <numeric>",
+            "#include <cstring>",
+            "#include <string>",
+            "#include <vector>",
+            "#include <array>",
+            "#include <set>",
+            "#include <iomanip>",
+            "#include <unordered_map>",
+            "#include <map>",
+            "#include <cmath>",
+            "#include <stack>",
+            "using namespace std;",
+            "",
+            "//--------------------------------TEMPLATE--------------------------------------------------",
+            "template<typename T> ostream& operator<<(ostream& os, vector<T>& v) { for (auto& i : v) os << i << ' '; return os; }",
+            "template<typename T> istream& operator>>(istream& is, vector<T>& v) { for (auto& i : v) is >> i; return is; }",
+            "",
+            "//--------------------------------FAST--------------------------------------------------",
+            "#define maher \\",
+            "ios_base::sync_with_stdio(false); \\",
+            "cin.tie(NULL); \\",
+            "cout.tie(NULL)",
+            "",
+            "//--------------------------------MAC--------------------------------------------------",
+            "#define ll long long",
+            "#define vi vector<int>",
+            "#define vvi vector<vi>",
+            "#define vll vector<long long>",
+            "#define pi pair<int, int>",
+            "#define vpi vector<pi>",
+            "#define all(a) a.begin(), a.end()",
+            "#define all_r(a) a.rbegin(), a.rend()",
+            "#define cinarr(s, n) for (int i = 0; i < n; i++) {cin >> s[i];}",
+            "#define coutarr(s, n) for (int i = 1; i <= n; i++) {cout << s[i] << ' ';}",
+            "#define cin2darr(s, n, m) for (int j = 0; j < n; j++) for (int i = 0; i < m; i++){cin >> s[j][i];}",
+            "#define cout2darr(s, n, m) for (int j = 0; j < n; j++){for (int i = 0; i < m; i++){cout << s[j][i];}cout << endl;}",
+            "#define int long long",
+            "",
+            "//-----------------------------------------SOLVE--------------------------------------------------",
+            "void solve(){",
+            "}",
+            "",
+            "signed main(){",
+            "    maher;",
+            "    int t = 1;",
+            "    //cin >> t;",
+            "    while (t--){",
+            "        solve();",
+            "    }",
+            "    return 0;",
+            "}"
+        })
+    })
+}
