@@ -1,6 +1,7 @@
 return {
   {
     "ray-x/web-tools.nvim",
+    cmd = { "WebTools" },
     dependencies = {
       "ray-x/guihua.lua", -- optional but recommended (floating windows)
       "nvim-lua/plenary.nvim",

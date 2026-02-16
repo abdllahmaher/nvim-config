@@ -1,7 +1,8 @@
 
 return {
   "zbirenbaum/copilot.lua",
-  event = "InsertEnter",  -- load Copilot as soon as you start typing
+  event = "VeryLazy",  -- load Copilot as soon as  start typing
+  cmd = "Copilot",     -- only load fully when  run :Copilot command
   build = ":Copilot auth",
   opts = {
     suggestion = {
@@ -24,4 +25,3 @@ return {
     },
   },
 }
-
