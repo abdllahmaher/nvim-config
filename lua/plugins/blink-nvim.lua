@@ -128,6 +128,8 @@ return {
       default = {
         'lsp',
         'path',
+        'buffer',
+        'snippets',
       },
       providers = {
         ripgrep = {
