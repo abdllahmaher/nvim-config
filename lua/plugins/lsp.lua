@@ -1,4 +1,3 @@
-
 return {
   -- Mason for managing LSP servers
   {
@@ -14,7 +13,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "mason-org/mason.nvim",
-      "neovim/nvim-lspconfig",
+      { "neovim/nvim-lspconfig", enabled = true },
     },
     config = function()
       require("mason-lspconfig").setup({
@@ -35,11 +34,11 @@ return {
     dependencies = {
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp", -- For capabilities
+      { "hrsh7th/cmp-nvim-lsp", enabled = false },
     },
     config = function()
       local lspconfig = require("lspconfig")
-      
+
       -- REQUIRED for nvim-cmp
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 

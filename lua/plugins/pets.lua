@@ -1,13 +1,13 @@
 return {
   "abdllahmaher/pets.nvim",
-  enabled = true,
+  enabled = false,
   dependencies = { 
     "MunifTanjim/nui.nvim", 
     "giusgad/hologram.nvim" 
   },
   config = function()
     require("pets").setup({
-      row = 7,
+      row = 8,
       col = 0,
       speed_multiplier = 1,
       default_pet = "cat",
@@ -15,9 +15,9 @@ return {
       random = false,
       death_animation = true,
       popup = {
-        width = "50%",
+        width = "10%",
         winblend = 100,
-        hl = { Normal = "Normal" },
+     --   hl = { Normal = "Normal" },
         avoid_statusline = true,
       }
     })

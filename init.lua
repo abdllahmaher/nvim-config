@@ -11,9 +11,9 @@ vim.cmd([[
   autocmd InsertLeave * set wildmenu
 ]])
 -- Disable blink.cmp if it's loaded
-vim.cmd([[
-  autocmd VimEnter * if exists('g:loaded_blink_cmp') | let g:blink_cmp_enabled = 0 | endif
-]])
+-- vim.cmd([[
+--   autocmd VimEnter * if exists('g:loaded_blink_cmp') | let g:blink_cmp_enabled = 0 | endif
+-- ]])
 vim.notify("Welcome back, Commander")
 
 -- Disable all automatic formatting
@@ -27,5 +27,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.lsp.handlers["textDocument/onTypeFormatting"] = function() end
   end,
 })
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/user/snippets" })
-

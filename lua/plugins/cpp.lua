@@ -1,4 +1,3 @@
--- -- ~/.config/nvim/lua/plugins/cpp.lua
 --
 -- return {
 --   {
@@ -7,21 +6,21 @@
 --       "neovim/nvim-lspconfig",
 --       "mason-org/mason.nvim",
 --       "mason-org/mason-lspconfig.nvim",
---       "hrsh7th/cmp-nvim-lsp", -- ADD THIS
+--       { "hrsh7th/cmp-nvim-lsp", enabled = false },
 --     },
 --     ft = { "c", "cpp", "h", "hpp" },
 --     config = function()
---       -- Safely require cmp_nvim_lsp
---       local ok_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
---       if not ok_cmp then
---         vim.notify("cmp-nvim-lsp not installed! Run :Lazy install hrsh7th/cmp-nvim-lsp", vim.log.levels.ERROR)
---         return
+--       local lspconfig = require("lspconfig")
+--
+--       -- Safe require for cmp_nvim_lsp
+--       local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+--       if not ok then
+--         vim.notify("cmp_nvim_lsp not found! clangd_extensions may be limited.", vim.log.levels.WARN)
 --       end
 --
---       -- Setup clangd with nvim-lspconfig + Mason
---       local lspconfig = require("lspconfig")
+--       -- clangd setup
 --       lspconfig.clangd.setup({
---         capabilities = cmp_nvim_lsp.default_capabilities(),
+--         capabilities = cmp_nvim_lsp and cmp_nvim_lsp.default_capabilities() or nil,
 --         cmd = {
 --           "clangd",
 --           "--background-index",
@@ -33,12 +32,12 @@
 --         },
 --       })
 --
---       -- Setup clangd extensions
---       local ok_ext, clangd_ext = pcall(require, "clangd_extensions")
---       if ok_ext then
+--       -- clangd extensions setup
+--       local ok2, clangd_ext = pcall(require, "clangd_extensions")
+--       if ok2 then
 --         clangd_ext.setup({
 --           server = {
---             capabilities = cmp_nvim_lsp.default_capabilities(),
+--             capabilities = cmp_nvim_lsp and cmp_nvim_lsp.default_capabilities() or nil,
 --           },
 --           extensions = {
 --             autoSetHints = true,
@@ -51,48 +50,10 @@
 --             },
 --           },
 --         })
---       else
---         vim.notify("clangd_extensions.nvim not loaded!", vim.log.levels.WARN)
 --       end
---
---       -- C++ keybindings
---       vim.keymap.set("n", "<leader>cf", "<cmd>ClangdSwitchSourceHeader<cr>", { desc = "Switch source/header" })
---       vim.keymap.set("n", "<leader>ch", "<cmd>ClangdToggleInlayHints<cr>", { desc = "Toggle inlay hints" })
---
---       -- C++ file settings
---       vim.api.nvim_create_autocmd("FileType", {
---         pattern = { "cpp", "c", "h", "hpp" },
---         callback = function()
---           vim.bo.tabstop = 4
---           vim.bo.shiftwidth = 4
---           vim.bo.softtabstop = 4
---           vim.bo.expandtab = false
---
---           -- Auto insert common C++ template
---           if vim.fn.line("$") == 1 and vim.fn.getline(1) == "" then
---             vim.fn.setline(1, "#include <iostream>")
---             vim.fn.setline(2, "")
---             vim.fn.setline(3, "using namespace std;")
---             vim.fn.setline(4, "")
---             vim.fn.setline(5, "int main() {")
---             vim.fn.setline(6, "    ")
---             vim.fn.setline(7, "    return 0;")
---             vim.fn.setline(8, "}")
---             vim.api.nvim_input("6G$")
---           end
---         end,
---       })
 --     end,
 --   },
 -- }
---
---
---
---
---
---
---
-
 return {
   {
     "p00f/clangd_extensions.nvim",
@@ -100,21 +61,18 @@ return {
       "neovim/nvim-lspconfig",
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp", -- <- make sure this is added
+      --"Saghen/blink.cmp",  
     },
     ft = { "c", "cpp", "h", "hpp" },
     config = function()
+      -- جيب capabilities من blink.cmp
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
+      
       local lspconfig = require("lspconfig")
-
-      -- Safe require for cmp_nvim_lsp
-      local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-      if not ok then
-        vim.notify("cmp_nvim_lsp not found! clangd_extensions may be limited.", vim.log.levels.WARN)
-      end
 
       -- clangd setup
       lspconfig.clangd.setup({
-        capabilities = cmp_nvim_lsp and cmp_nvim_lsp.default_capabilities() or nil,
+        capabilities = capabilities,  -- استخدم capabilities من blink.cmp
         cmd = {
           "clangd",
           "--background-index",
@@ -127,11 +85,11 @@ return {
       })
 
       -- clangd extensions setup
-      local ok2, clangd_ext = pcall(require, "clangd_extensions")
-      if ok2 then
+      local ok, clangd_ext = pcall(require, "clangd_extensions")
+      if ok then
         clangd_ext.setup({
           server = {
-            capabilities = cmp_nvim_lsp and cmp_nvim_lsp.default_capabilities() or nil,
+            capabilities = capabilities,  -- استخدم capabilities من blink.cmp
           },
           extensions = {
             autoSetHints = true,

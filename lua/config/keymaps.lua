@@ -41,6 +41,7 @@ vim.keymap.set({"i","s"}, "<Tab>", function()
     end
 end, {expr=true, silent=true})
 
+-- run CompetiTest:
 vim.keymap.set({"i","s"}, "<S-Tab>", function()
     if ls.jumpable(-1) then
         return ls.jump(-1)
@@ -51,3 +52,11 @@ end, {expr=true, silent=true})
 
 vim.keymap.set("n", "<leader>t", ":CompetiTest run<CR>", { noremap = true, silent = true })
 
+-- Toggle file explorer
+-- remove old mapping
+vim.keymap.del("n", "<leader>E")
+
+-- add new mapping on <leader>e
+vim.keymap.set("n", "<leader>e", function()
+  Snacks.explorer({ cwd = true })
+end, { desc = "Explorer Snacks (cwd)" })

@@ -163,5 +163,5 @@ require("lazy").setup({
   },
 })
 vim.api.nvim_set_hl(0, "CursorLine", {
-  bg = "#435769", -- اختار الدرجة اللي تعجبك
+  bg = "#435769",
 })

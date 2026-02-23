@@ -50,7 +50,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    enabled = true,
+    enabled = false,
     lazy = false,
     opts = function(_, opts)
       -- enable ghost text

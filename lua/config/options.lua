@@ -9,4 +9,4 @@ vim.g.python3_host_prog = vim.fn.expand("~/.nvim-venv/bin/python")
 vim.opt.number = true
 vim.opt.relativenumber = false
 -- python
-
+vim.opt.showtabline = 1 
