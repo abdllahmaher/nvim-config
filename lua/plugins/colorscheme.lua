@@ -1,73 +1,81 @@
 -- return {
 --   {
---     "catppuccin/nvim",
---     name = "catppuccin",
---     lazy = false,
---     priority = 1000,
---     opts = {
---       transparent_background = true,
---       integrations = {
---         cmp = true,
---         telescope = true,
---         treesitter = true,
---         native_lsp = {
---           enabled = true,
---         },
---       },
---     },
---     config = function(_, opts)
---       require("catppuccin").setup(opts)
---       vim.cmd.colorscheme("catppuccin-mocha")
---     end,
---   },
--- }
-
--- return {
---   {
---     "Tsuzat/NeoSolarized.nvim",
+--     "scottmckendry/cyberdream.nvim",
 --     lazy = false,
 --     priority = 1000,
 --     config = function()
---       require("NeoSolarized").setup({
---         style = "dark",
---         transparent = true,
+--       require("cyberdream").setup({
+--         variant = "default", -- or "auto"
+--         transparent = true, -- THIS is what you missed
 --         terminal_colors = true,
---         enable_italics = true,
+--
+--         extensions = {
+--           cmp = true,
+--           blinkcmp = true,
+--           telescope = true,
+--           mini = true,
+--           notify = true,
+--           gitsigns = true,
+--         },
 --       })
-
---       vim.cmd.colorscheme("NeoSolarized")
+--
+--       vim.cmd.colorscheme("cyberdream")
+--
+--       vim.cmd([[
+--   highlight! link CmpItemAbbr Normal
+--   highlight! link CmpItemAbbrMatch Keyword
+--   highlight! link CmpItemKind Type
+--   highlight! link CmpItemMenu Comment
+-- ]])
 --     end,
 --   },
 -- }
+
 return {
   {
-    "scottmckendry/cyberdream.nvim",
+    "catppuccin/nvim",
+    name = "catppuccin",
     lazy = false,
     priority = 1000,
     config = function()
-      require("cyberdream").setup({
-        variant = "default", -- or "auto"
-        transparent = true, -- THIS is what you missed
-        terminal_colors = true,
+      require("catppuccin").setup({
+        flavour = "mocha",
 
-        extensions = {
+        transparent_background = true,
+
+        integrations = {
           cmp = true,
-          blinkcmp = true,
-          telescope = true,
-          mini = true,
-          notify = true,
           gitsigns = true,
+          telescope = true,
+          notify = true,
+          mini = true,
         },
       })
 
-      vim.cmd.colorscheme("cyberdream")
+      vim.cmd.colorscheme("catppuccin")
 
       vim.cmd([[
-  highlight! link CmpItemAbbr Normal
-  highlight! link CmpItemAbbrMatch Keyword
-  highlight! link CmpItemKind Type
-  highlight! link CmpItemMenu Comment
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NormalFloat guibg=NONE ctermbg=NONE
+  highlight FloatBorder guibg=NONE ctermbg=NONE
+  highlight SignColumn guibg=NONE
+  highlight EndOfBuffer guibg=NONE
+
+  highlight Pmenu guibg=NONE ctermbg=NONE
+  highlight PmenuSel guibg=NONE ctermbg=NONE
+  highlight PmenuSbar guibg=NONE ctermbg=NONE
+  highlight PmenuThumb guibg=NONE ctermbg=NONE
+
+  highlight BlinkCmpMenu guibg=NONE
+  highlight BlinkCmpMenuBorder guibg=NONE
+  highlight BlinkCmpDoc guibg=NONE
+  highlight BlinkCmpDocBorder guibg=NONE
 ]])
+      -- force transparency
+      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+      vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+      vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
     end,
   },
 }

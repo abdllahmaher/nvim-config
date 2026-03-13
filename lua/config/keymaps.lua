@@ -51,7 +51,8 @@ vim.keymap.set({"i","s"}, "<S-Tab>", function()
 end, {expr=true, silent=true})
 
 vim.keymap.set("n", "<leader>t", ":CompetiTest run<CR>", { noremap = true, silent = true })
-
+vim.keymap.set("n", "<leader>tt", ":CompetiTest edit_testcase<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ta", ":CompetiTest add_testcase<CR>", { noremap = true, silent = true })
 -- Toggle file explorer
 -- remove old mapping
 vim.keymap.del("n", "<leader>E")

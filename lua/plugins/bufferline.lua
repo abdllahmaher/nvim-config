@@ -8,28 +8,29 @@ return {
 
   config = function()
     vim.opt.showtabline = 2
-    vim.opt.termguicolors = true  -- Required for proper colors
+    vim.opt.termguicolors = true -- Required for proper colors
 
     require("bufferline").setup({
       options = {
         mode = "buffers",
         -- Show LSP diagnostics
-        diagnostics = "nvim_lsp",  -- Use "coc" if you're using coc.nvim
-        
+        diagnostics = "nvim_lsp", -- Use "coc" if you're using coc.nvim
+
         -- Customize how diagnostics appear - only icons change color
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
-          local icon = level:match("error") and " " or 
-                      level:match("warning") and " " or 
-                      level:match("info") and " " or 
-                      level:match("hint") and " " or ""
-          
+          local icon = level:match("error") and " "
+            or level:match("warning") and " "
+            or level:match("info") and " "
+            or level:match("hint") and " "
+            or ""
+
           -- Return just the icon with count, no text color changes
           return " " .. icon .. count
         end,
-        
+
         -- Update diagnostics in insert mode (for coc)
         diagnostics_update_in_insert = false,
-        
+
         -- Use Neovim's native diagnostic handler
         diagnostics_update_on_event = true,
 
@@ -39,28 +40,28 @@ return {
         show_buffer_close_icons = true,
         show_close_icon = true,
         show_tab_indicators = true,
-        
+
         -- Separator style
         separator_style = "thin",
-        
+
         -- Buffer name formatting
         max_name_length = 30,
         max_prefix_length = 30,
         truncate_names = true,
-        
+
         -- Icons
-        buffer_close_icon = '󰅖',
-        modified_icon = '●',
-        close_icon = '',
-        left_trunc_marker = '',
-        right_trunc_marker = '',
-        
+        buffer_close_icon = "󰅖",
+        modified_icon = "●",
+        close_icon = "",
+        left_trunc_marker = "",
+        right_trunc_marker = "",
+
         -- Color icons by filetype
         color_icons = true,
-        
+
         -- Sorting
         sort_by = "insert_after_current",
-        
+
         -- Key mappings
         offsets = {
           {
@@ -68,78 +69,13 @@ return {
             text = "File Explorer",
             highlight = "Directory",
             text_align = "left",
-            separator = true
-          }
+            separator = true,
+          },
         },
       },
+    })
 
-      -- CORRECTED HIGHLIGHTS - Using actual bufferline highlight group names
-    --   highlights = {
-    --     -- For error diagnostics
-    --     fill = {
-    --       -- This keeps the background normal
-    --     },
-    --     background = {
-    --       -- This ensures buffer names have normal colors
-    --     },
-    --
-    --     -- Error indicator (the icon only)
-    --     diagnostic = {
-    --       fg = "#ff0000",  -- Red for error icon
-    --     },
-    --     diagnostic_visible = {
-    --       fg = "#ff0000",
-    --     },
-    --     diagnostic_selected = {
-    --       fg = "#ff0000",
-    --     },
-    --
-    --     -- Warning indicator (the icon only)
-    --     warning = {
-    --       fg = "#ffaa00",  -- Orange/Yellow for warning icon
-    --     },
-    --     warning_diagnostic = {
-    --       fg = "#ffaa00",
-    --     },
-    --     warning_visible = {
-    --       fg = "#ffaa00",
-    --     },
-    --     warning_selected = {
-    --       fg = "#ffaa00",
-    --     },
-    --
-    --     -- Info indicator (the icon only)
-    --     info = {
-    --       fg = "#00ffff",  -- Cyan for info icon
-    --     },
-    --     info_diagnostic = {
-    --       fg = "#00ffff",
-    --     },
-    --     info_visible = {
-    --       fg = "#00ffff",
-    --     },
-    --     info_selected = {
-    --       fg = "#00ffff",
-    --     },
-    --
-    --     -- Hint indicator (the icon only)
-    --     hint = {
-    --       fg = "#aa00ff",  -- Purple for hint icon
-    --     },
-    --     hint_diagnostic = {
-    --       fg = "#aa00ff",
-    --     },
-    --     hint_visible = {
-    --       fg = "#aa00ff",
-    --     },
-    --     hint_selected = {
-    --       fg = "#aa00ff",
-    --     },
-    --   },
-     }
-  )
-
-    -- Optional: If you're still seeing colored buffer names, 
+    -- Optional: If you're still seeing colored buffer names,
     -- you can explicitly set the buffer name highlight to use your theme's defaults
     vim.cmd([[
       highlight! link BufferLineBuffer Normal
@@ -150,7 +86,7 @@ return {
     -- Keybindings for buffer navigation
     vim.keymap.set("n", "<leader>h", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer", silent = true })
     vim.keymap.set("n", "<leader>l", ":BufferLineCycleNext<CR>", { desc = "Next buffer", silent = true })
-    
+
     -- Alternative with arrow keys
     vim.keymap.set("n", "<leader><left>", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer", silent = true })
     vim.keymap.set("n", "<leader><right>", ":BufferLineCycleNext<CR>", { desc = "Next buffer", silent = true })
@@ -160,7 +96,12 @@ return {
     vim.keymap.set("n", "<leader>bp", ":BufferLinePick<CR>", { desc = "Pick buffer", silent = true })
     vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete current buffer", silent = true })
     vim.keymap.set("n", "<leader>bo", ":BufferLineCloseOthers<CR>", { desc = "Close other buffers", silent = true })
-    vim.keymap.set("n", "<leader>br", ":BufferLineCloseRight<CR>", { desc = "Close buffers to the right", silent = true })
+    vim.keymap.set(
+      "n",
+      "<leader>br",
+      ":BufferLineCloseRight<CR>",
+      { desc = "Close buffers to the right", silent = true }
+    )
     vim.keymap.set("n", "<leader>bl", ":BufferLineCloseLeft<CR>", { desc = "Close buffers to the left", silent = true })
 
     -- Sorting keybindings

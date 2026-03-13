@@ -106,7 +106,7 @@ return {
 			maximum_time = 5000,
 			output_compare_method = "squish",
 			view_output_diff = false,
-      start_receiving_persistently_on_setup = true,
+      --start_receiving_persistently_on_setup = true,
 			testcases_directory = ".testcases",
 			testcases_use_single_file = true,
 			testcases_auto_detect_storage = true,
@@ -123,37 +123,28 @@ return {
 
 received_files_extension = "cpp",
 
--- All problems go inside ~/Contest
+-- All problems go inside ~/MyWork/Contests
 
 received_contests_directory = function(task)
-  -- task.group or task.url contains the contest info
   local url = task.url or ""
-  -- Extract contest number from URL like https://codeforces.com/contest/2197
   local contest_code = url:match("/contest/(%d+)") or "UnknownContest"
-  -- Return full path inside ~/Contest
-  return vim.fn.expand("~") .. "/Contest/" .. contest_code
+  return vim.fn.expand("~") .. "/MyWork/Contests/" .. contest_code
 end,
 received_contests_prompt_directory = true,
 
 
--- Each problem inside contest folder, named by its problem code
 received_contests_problems_path = function(task, ext)
   local url = task.url or ""
-  -- Extract contest number
   local contest_code = url:match("/contest/(%d+)") or "UnknownContest"
-  -- Extract problem letter/code
   local problem_code = url:match("/problem/([A-Z])$") or task.name:gsub("%s+", "_")
-  -- Full path inside contest folder
-  return vim.fn.expand("~") .. "/Contest/" .. contest_code .. "/" .. problem_code .. "." .. ext
+  return vim.fn.expand("~") .. "/MyWork/Contests/" .. contest_code .. "/" .. problem_code .. "." .. ext
 end,
 
 received_contests_prompt_extension = true,
 
--- Hide testcases inside each problem folder
 testcases_directory = ".testcases",
 testcases_use_single_file = true,
 
--- Automatically open folders when received
 open_received_problems = true,
 open_received_contests = true,
 
@@ -163,20 +154,15 @@ open_received_contests = true,
 --   local url = task.url or ""
 --   local code = url:match(".*/problem/([^/]+/[^/]+)$") or task.name
 --   code = code:gsub("/", "_")
---   -- Put all single problems inside ~/Contest
---   return vim.fn.expand("~") .. "/Contest/" .. code .. "." .. ext
+--   return vim.fn.expand("~") .. "/MyWork/Contests/" .. code .. "." .. ext
 -- end,
       --
 
 received_problems_path = function(task, ext)
   local url = task.url or ""
-
-  -- If the problem is from a contest, extract contest and problem
   local contest_code = url:match("/contest/(%d+)") or "Standalone"
   local problem_code = url:match("/problem/([A-Z])$") or task.name:gsub("%s+", "_")
-
-  -- Full path inside contest folder (or Standalone if no contest)
-  return vim.fn.expand("~") .. "/Contest/" .. contest_code .. "/" .. problem_code .. "." .. ext
+  return vim.fn.expand("~") .. "/MyWork/Contests/" .. contest_code .. "/" .. problem_code .. "." .. ext
 end,
 
 received_problems_prompt_path = true,
