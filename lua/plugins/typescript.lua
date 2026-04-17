@@ -6,13 +6,16 @@ return {
         settings = {
           typescript = {
             preferences = {
-              includePackageJsonAutoImports = "on",
+              includePackageJsonAutoImports = "off",
             },
           },
           javascript = {
             preferences = {
-              includePackageJsonAutoImports = "on",
+              includePackageJsonAutoImports = "off",
             },
+          },
+          inlayHints = {
+            includedFiles = false,
           },
         },
       },
