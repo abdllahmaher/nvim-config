@@ -33,22 +33,22 @@ vim.keymap.set("n", "<Space>q", function()
   Snacks.bufdelete({ force = false })
 end, { desc = "Close buffer (keep focus)" })
 local ls = require("luasnip")
-vim.keymap.set({"i","s"}, "<Tab>", function()
-    if ls.expand_or_jumpable() then
-        return ls.expand_or_jump()
-    else
-        return "<Tab>"
-    end
-end, {expr=true, silent=true})
+vim.keymap.set({ "i", "s" }, "<Tab>", function()
+  if ls.expand_or_jumpable() then
+    return ls.expand_or_jump()
+  else
+    return "<Tab>"
+  end
+end, { expr = true, silent = true })
 
 -- run CompetiTest:
-vim.keymap.set({"i","s"}, "<S-Tab>", function()
-    if ls.jumpable(-1) then
-        return ls.jump(-1)
-    else
-        return "<S-Tab>"
-    end
-end, {expr=true, silent=true})
+vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+  if ls.jumpable(-1) then
+    return ls.jump(-1)
+  else
+    return "<S-Tab>"
+  end
+end, { expr = true, silent = true })
 
 vim.keymap.set("n", "<leader>t", ":CompetiTest run<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>tt", ":CompetiTest edit_testcase<CR>", { noremap = true, silent = true })
@@ -61,3 +61,13 @@ vim.keymap.del("n", "<leader>E")
 vim.keymap.set("n", "<leader>e", function()
   Snacks.explorer({ cwd = true })
 end, { desc = "Explorer Snacks (cwd)" })
+-- LSP Navigation - Go to Definition
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition (LSP)" })
+vim.keymap.set("n", "gD", vim.lsp.buf.definition, { desc = "Go to Definition (LSP)" })
+
+-- Other useful LSP mappings 
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to References" })
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to Implementation" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })

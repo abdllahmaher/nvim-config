@@ -1,0 +1,27 @@
+return {
+  -- Override LazyVim's format settings
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      format = {
+        enabled = false, -- Disable all automatic formatting
+      },
+    },
+  },
+
+  -- Also disable the LazyFormat autocmd
+  {
+    "LazyVim/LazyVim",
+    event = "VeryLazy",
+    config = function()
+      -- Clear the LazyFormat autocmd
+      vim.api.nvim_clear_autocmds({ group = "LazyFormat" })
+
+      -- Or disable formatting function
+      if package.loaded["lazyvim.util.format"] then
+        local format = require("lazyvim.util.format")
+        format.format = function() end
+      end
+    end,
+  },
+}
