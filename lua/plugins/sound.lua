@@ -199,6 +199,7 @@ end
 return {
   {
     "EggbertFluffle/beepboop.nvim",
+    commit = "280bce9f30b2e9d50921bb4a9e104a3c61451685",
 
     opts = {
       audio_player = "paplay", -- Linux/PulseAudio. macOS: "afplay"

@@ -23,7 +23,7 @@ return {
       lsp_format = "fallback",
     },
     formatters_by_ft = {
-      lua = { "stylua" },
+      -- lua = { "stylua" },
       fish = { "fish_indent" },
       sh = { "shfmt" },
       -- Don't add cpp here - let manual formatting handle it

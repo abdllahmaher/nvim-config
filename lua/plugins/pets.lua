@@ -1,78 +1,80 @@
-return {
-  "abdllahmaher/pets.nvim",
-  enabled = false,
-  dependencies = { 
-    "MunifTanjim/nui.nvim", 
-    "giusgad/hologram.nvim" 
-  },
-  config = function()
-    require("pets").setup({
-      row = 8,
-      col = 0,
-      speed_multiplier = 1,
-      default_pet = "cat",
-      default_style = "brown",
-      random = false,
-      death_animation = true,
-      popup = {
-        width = "10%",
-        winblend = 100,
-     --   hl = { Normal = "Normal" },
-        avoid_statusline = true,
-      }
-    })
-    
-    -- Create a default pet if none exists
-    vim.defer_fn(function()
-      local pets = require("pets")
-      if vim.tbl_count(pets.list() or {}) == 0 then
-        vim.cmd("PetsNew Pet")
-      end
-    end, 500)
-    
-    -- More aggressive resize handling
-    local last_width = vim.o.columns
-    local last_height = vim.o.lines
-    
-    vim.api.nvim_create_autocmd("VimResized", {
-      pattern = "*",
-      callback = function()
-        local new_width = vim.o.columns
-        local new_height = vim.o.lines
-        
-        -- Only trigger if size actually changed
-        if new_width ~= last_width or new_height ~= last_height then
-          last_width = new_width
-          last_height = new_height
-          
-          vim.defer_fn(function()
-            -- Kill and recreate all pets
-            local pets = require("pets")
-            local pet_list = pets.list() or {}
-            local pet_details = {}
-            
-            -- Store pet details 
-            for i, pet_name in ipairs(pet_list) do
-              pet_details[i] = {
-                name = pet_name,
-                -- Unfortunately we can't easily get type/style
-              }
-            end
-            
-            vim.cmd("PetsKillAll")
-            
-            vim.defer_fn(function()
-              for _, pet in ipairs(pet_details) do
-                vim.cmd("PetsNew " .. pet.name)
-              end
-              
-              if #pet_details == 0 then
-                vim.cmd("PetsNew Pet")
-              end
-            end, 100)
-          end, 100)
-        end
-      end,
-    })
-  end
-}
+--I have Commented it cuz propaply  memory leak
+-- return {
+--   "abdllahmaher/pets.nvim",
+--   enabled = false,
+--   dependencies = {
+--     "MunifTanjim/nui.nvim",
+--     "giusgad/hologram.nvim"
+--   },
+--   config = function()
+--     require("pets").setup({
+--       row = 8,
+--       col = 0,
+--       speed_multiplier = 1,
+--       default_pet = "cat",
+--       default_style = "brown",
+--       random = false,
+--       death_animation = true,
+--       popup = {
+--         width = "10%",
+--         winblend = 100,
+--      --   hl = { Normal = "Normal" },
+--         avoid_statusline = true,
+--       }
+--     })
+--
+--     -- Create a default pet if none exists
+--     vim.defer_fn(function()
+--       local pets = require("pets")
+--       if vim.tbl_count(pets.list() or {}) == 0 then
+--         vim.cmd("PetsNew Pet")
+--       end
+--     end, 500)
+--
+--     -- More aggressive resize handling
+--     local last_width = vim.o.columns
+--     local last_height = vim.o.lines
+--
+--     vim.api.nvim_create_autocmd("VimResized", {
+--       pattern = "*",
+--       callback = function()
+--         local new_width = vim.o.columns
+--         local new_height = vim.o.lines
+--
+--         -- Only trigger if size actually changed
+--         if new_width ~= last_width or new_height ~= last_height then
+--           last_width = new_width
+--           last_height = new_height
+--
+--           vim.defer_fn(function()
+--             -- Kill and recreate all pets
+--             local pets = require("pets")
+--             local pet_list = pets.list() or {}
+--             local pet_details = {}
+--
+--             -- Store pet details
+--             for i, pet_name in ipairs(pet_list) do
+--               pet_details[i] = {
+--                 name = pet_name,
+--                 -- Unfortunately we can't easily get type/style
+--               }
+--             end
+--
+--             vim.cmd("PetsKillAll")
+--
+--             vim.defer_fn(function()
+--               for _, pet in ipairs(pet_details) do
+--                 vim.cmd("PetsNew " .. pet.name)
+--               end
+--
+--               if #pet_details == 0 then
+--                 vim.cmd("PetsNew Pet")
+--               end
+--             end, 100)
+--           end, 100)
+--         end
+--       end,
+--     })
+--   end
+-- }
+return {}

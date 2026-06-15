@@ -1,0 +1,1 @@
+return {"dcorral/svgpreview-vim"}

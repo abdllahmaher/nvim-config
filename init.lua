@@ -8,14 +8,18 @@ local function get_memory_usage()
   local color = mem_mb > 3000 and "%#Error#" or (mem_mb > 2000 and "%#WarningMsg#" or "%#Normal#")
   return color .. " " .. mem_mb .. "MB %*"
 end
-_G.get_memory_usage = get_memory_usage  -- Make globally accessible for statusline
+_G.get_memory_usage = get_memory_usage -- Make globally accessible for statusline
 
 local function check_memory_usage()
   local mem = vim.fn.system("ps -o rss= -p " .. vim.fn.getpid())
   local mem_mb = math.floor(tonumber(mem) / 1024)
-  
+
   if mem_mb > 4000 then
-    vim.notify("⚠️ CRITICAL: " .. mem_mb .. "MB, force killing Copilot and restarting LSP...", "error", { title = "Memory Monitor" })
+    vim.notify(
+      "⚠️ CRITICAL: " .. mem_mb .. "MB, force killing Copilot and restarting LSP...",
+      "error",
+      { title = "Memory Monitor" }
+    )
     -- Force kill Copilot specifically
     os.execute("pkill -9 -f 'copilot-language-server' 2>/dev/null")
     os.execute("pkill -9 -f 'npm exec.*copilot' 2>/dev/null")
@@ -32,10 +36,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     -- Use vim.uv instead of deprecated vim.loop
     local memory_timer = vim.uv.new_timer()
-    memory_timer:start(60000, 60000, vim.schedule_wrap(function()
-      pcall(check_memory_usage)  -- Wrap in pcall to handle errors gracefully
-    end))
-    
+    memory_timer:start(
+      60000,
+      60000,
+      vim.schedule_wrap(function()
+        pcall(check_memory_usage) -- Wrap in pcall to handle errors gracefully
+      end)
+    )
+
     -- Clean up on exit
     vim.api.nvim_create_autocmd("VimLeavePre", {
       callback = function()
@@ -48,7 +56,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 -- Limit LSP diagnostic memory usage
 vim.diagnostic.config({
-  virtual_text = false,  -- Disable virtual text (major memory saver)
+  virtual_text = false, -- Disable virtual text (major memory saver)
   signs = true,
   underline = true,
   update_in_insert = false,
@@ -59,14 +67,12 @@ vim.diagnostic.config({
 })
 
 -- LSP memory limits
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    signs = true,
-    underline = true,
-    update_in_insert = false,
-  }
-)
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+})
 
 -- Optional: Add memory to statusline without breaking plugins
 -- Comment this out if it causes issues with your existing statusline
@@ -97,7 +103,7 @@ vim.opt.pumblend = 0 -- Make completion menu opaque (0-100 for transparency)
 vim.opt.wildmode = "longest:full,full" -- Or disable completely with {}
 vim.o.termguicolors = true
 vim.opt.title = true
-vim.opt.titlestring = "nvim %f"  -- sets title to "nvim filename"
+vim.opt.titlestring = "nvim %f" -- sets title to "nvim filename"
 
 -- Optional: Ensure wildmenu doesn't show in insert mode
 vim.cmd([[
@@ -186,4 +192,9 @@ vim.api.nvim_create_user_command("CopilotCleanup", function()
 end, {})
 
 -- Your existing configuration continues below
+--
+--
+--
 -- ... (any other configuration you had)
+im.g.lazyvim_format_on_save = false
+vim.g.autoformat = false -- LazyVim uses this

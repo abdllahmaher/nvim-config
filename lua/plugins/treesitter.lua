@@ -20,6 +20,8 @@ return {
         "vim",
         "vimdoc",
         "query",
+        "tsx",
+        "jsx",
       },
       auto_install = true,
       highlight = {
@@ -48,4 +50,3 @@ return {
     },
   },
 }
-
